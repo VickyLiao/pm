@@ -1,0 +1,232 @@
+<!--
+<div class="panel panel-default" ng-controller="ProjectCtrl">
+<button type="file" ngf-select="UploadFiles($file, $invalidFiles)"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select Projects CSV File</button>
+</div>
+-->
+
+<div class="panel panel-default" ng-controller="ProjectCtrl">
+  <div class="panel-heading "><button type="button" class="glyphicon glyphicon-plus-sign" ng-click="CreateProject()">
+</button></div>
+
+  <div class="panel-body">
+<!-- Semesters on the left -->
+<div class="col-xs-1">
+<div>
+<a ng-repeat="semester in $root.data.semesters | filter:{status:true} | orderBy :'semester.created_at'" ng-click="SelectSemester(semester)" class="btn btn-default " ng-class="GetSemesterClass(semester)">{{semester.name}}</a>
+
+
+  
+</div>
+</div>
+
+<!-- Projects on the right -->
+<div class="col-xs-8">
+
+
+<accordion  ng-repeat="project in $root.data.projects | filter:{semester:$root.data.semesters.selectedSemester.name}" >
+  <!-- Default panel contents -->
+  
+
+    <accordion-group is-open="isMainPanelOpen">
+    <accordion-heading>
+
+
+
+    <div class="row">
+          <div class="col-sm-6">
+            <span class="pull-left">  {{project.no}}  {{project.title}}-{{project.status}}</span>
+             </div>
+             <div class="col-sm-6">
+      <span class="pull-right" ng-show="project.editMode==null || project.editMode==false"> <div class="btn-group btn-group-xs" role="group" >
+  <button type="button" class="btn btn-default" ng-click="toggleEditMode($event,project)">Edit</button>
+  <button type="button" class="btn btn-default" >Delete</button>
+
+</div></span>
+
+<span class="pull-right" ng-show="project.editMode"> <div class="btn-group btn-group-xs" role="group" >
+  <button type="button" class="btn btn-default" ng-click="toggleEditMode($event,project)">Save</button>
+  <button type="button" class="btn btn-default" ng-click="toggleEditMode($event,project)" >Cancel</button>
+
+</div></span>
+
+             </div>
+         </div>
+    
+ </accordion-heading>
+
+<!--panel body-->
+
+
+
+
+  <table class=" table table-striped table-bordered" ng-show="project.editMode == null || project.editMode == false">
+    <tr>
+            <td>Description</td>
+            <td>{{project.description}}</td>
+        </tr>
+        <tr>
+            <td>Client(s)</td>
+            <td> <ul>      
+  <li  ng-repeat="client in project.Clients">{{client.firstname}} {{client.lastname}}</li>
+
+</ul></td>
+     
+        </tr>
+          <tr>
+            <td>Academic Supervisor(s)</td>
+            <td> <ul>      
+  <li  ng-repeat="supervisor in project.Supervisors">{{supervisor.firstname}} {{supervisor.lastname}}</li>
+
+</ul></td>
+     
+        </tr>
+          <tr>
+            <td>Allocated Student(s)</td>
+                  <td> <ul>      
+  <li  ng-repeat="student in project.Students"><a href="https://my.unisa.edu.au/staff/Teaching/Students/Personal.aspx?sid={{student['Student Id']}}" target="blank">{{student['Student First Name']}} {{student['Student Family Name']}}[{{student['Program Code']}}]({{student['Current GPA']}})</a></li>
+
+</ul></td>
+        </tr>
+           <tr>
+            <td>Createby</td>
+            <td> Createby </td>
+     
+        </tr>
+    </table>
+
+
+  <table class=" table table-striped table-bordered" ng-show="project.editMode">
+  
+    <tr>   <td class="col-xs-2">Project No</td>
+            <td><input type="text" class="form-control" value="{{project.no}}"></td></tr>
+          <tr>     <td>Project Title</td>
+             <td><input type="text" class="form-control" value="{{project.title}}"></td></tr>
+           <tr>
+            <td>Status</td>
+            <td> Createby </td>
+     
+        </tr>
+         <tr>
+            <td>Description</td>
+            <td><textarea class="form-control" rows="3" placeholder="{{project.description}}">{{project.description}}</textarea></td>
+        </tr>
+        <tr>
+            <td>Client(s)</td>
+            <td ui-on-Drop="onDrop_AllocateClient($event,$data,project.Clients)"> 
+              <div class="btn btn-primary" ui-draggable="true" drag="staff" ng-repeat="client in project.Clients">{{client.firstname}} {{client.lastname}}</div>
+            </td>
+     
+        </tr>
+          <tr>
+            <td >Academic Supervisor(s)</td>
+            <td dnd-list="project.supervisors"> 
+              <div class="btn btn-primary" dnd-draggable="student"   ng-repeat="supervisor in project.supervisors" ng-click="project.supervisors.splice(project.supervisors.indexOf(supervisor), 1)">{{supervisor.firstname}} {{supervisor.lastname}}</div>
+            </td>
+     
+        </tr>
+          <tr>
+            <td>Allocated Student(s)</td>
+            <td  dnd-list="project.students"> 
+              <div  dnd-draggable="student"
+        dnd-moved="project.students.splice(project.students.indexOf(student), 1)"
+        dnd-effect-allowed="move"
+         ng-repeat="student in project.students">{{student['Student Id']}}-{{student['Student First Name']}} {{student['Student Family Name']}}[{{student['Program Code']}}]({{student['Current GPA']}})</div>
+            </td>
+        </tr>
+         
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <accordion>
+<accordion-group is-open="isCommentPanelOpen">
+    <accordion-heading>
+    <div class="row">
+          <div class="col-sm-6">
+            <span class="pull-left"> Comments</span>
+             </div>
+             <div class="col-sm-6">
+      <span class="pull-right"> <div class="btn-group btn-group-xs" role="group" >
+  <button type="button" class="btn btn-default">Add Comment</button>
+
+</div></span>
+             </div>
+         </div>
+ </accordion-heading>
+
+ </accordion-group>
+   </accordion>
+</accordion-group>
+  </accordion>
+
+<!--page counting start-->
+<div class="pull-right btn-group">
+    <button type="button" ng-class="getPageClass($index+1)" ng-repeat="project in projects" ng-click="selectPage($index+1)">{{$index +1}}</button>
+  </div>
+
+
+</div>
+<!--page counting end -->
+<div class="col-xs-3">
+
+<ul class="nav nav-pills nav-justified">
+  <li><a class="active" ng-click="GetAllocatedResource('Student')">Students</a></li>
+  <li><a ng-click="GetAllocatedResource('User')">Academic Staff</a></li>
+</ul>
+<div ng-switch on="allocatedResource">
+
+<div ng-switch-when="Student">
+  <table class="table table-striped" dnd-list="$root.data.students">
+    <thead>
+      <tr>
+        <th>  <a href="" ng-click="SetOrderBy('Student Family Name')">Full Name</a><span ng-show="orderBy=='Student Family Name'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+        <th>  <a href="" ng-click="SetOrderBy('Program Plan')">Program Plan</a><span ng-show="orderBy=='Program Plan'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+        <th>  <a href="" ng-click="SetOrderBy('Current GPA')">GPA</a><span ng-show="orderBy=='Current GPA'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+          <th>  <a href="" ng-click="SetOrderBy('Project_id')">Project</a><span ng-show="orderBy=='Project_id'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr 
+        dnd-draggable="student"
+      dnd-effect-allowed="move"
+            dnd-moved="$root.data.students.splice($root.data.students.indexOf(student), 1)"
+         ng-repeat="student in $root.data.students | filter:{semester:$root.data.semesters.selectedSemester.name}|  orderBy:predicate:reverse">
+        <td>{{student['Student First Name']}} {{student['Student Family Name']}}</td>
+        <td>{{student['Program ']}}</td>
+        <td>{{student['Current GPA']}}</td>
+        <td>{{student['Project_id']}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div ng-switch-when="User">
+
+ <div class="btn btn-block btn-primary"  dnd-draggable="user" ng-repeat="user in $root.data.users">{{user.firstname}} {{user.lastname}}</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+  
+</div>

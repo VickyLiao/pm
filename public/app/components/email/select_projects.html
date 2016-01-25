@@ -1,0 +1,49 @@
+
+
+<div class="modal-admin">
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Projects Information <button class="glyphicon glyphicon-remove pull-right" ng-click="Close()"></button></div>
+ <div class="panel-body">
+
+ Select : <select ng-options="semester.name for semester in $root.data.semesters.show" ng-model="$root.data.semesters.selectedSemester"></select>
+  &nbsp;&nbsp;<select ng-options="status for status in $root.data.projects.status" ng-model="$root.data.projects.selectedStatus"></select>&nbsp;&nbsp;
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+<th><input type="checkbox" ng-model="selectAll" ng-click="CheckAll(selectAll,$root.data.semesters.selectedSemester,$root.data.projects.selectedStatus)"></input></th>
+<th>Project ID</th>
+<th>Project No</th>
+
+
+<th>Title</th>
+<th>Clients</th>
+</tr>
+ </thead>
+<tr ng-repeat="project in $root.data.projects | filter:{semester: $root.data.semesters.selectedSemester.name}|filter:{status: $root.data.projects.selectedStatus}">
+   <td><input type="checkbox"  ng-model="project.selected"></td>
+  <td>{{project.project_id}}</td>
+  <td>{{project.no}}</td>
+ 
+  <td>{{project.title}}</td>
+  <td>{{project.client}}</td>
+</tr>
+ </table>
+
+  <button type="button" class="btn" 
+          ng-click="Save()">Save</button>
+
+  <button type="button" class="btn" 
+          ng-click="Close()">Close</button>
+
+<!--<div class="row"><button type="submit" ng-disabled="projectForm.$invalid" class="btn btn-default" ng-click="CreateProject(newProject)">Create</button><button type="submit" class="btn btn-default">Back</button></div>
+-->
+</div>
+</div>
+</div>
+</div>
+
+
+

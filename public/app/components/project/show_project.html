@@ -1,0 +1,107 @@
+
+
+<div class="modal-admin">
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Project Information <button class="glyphicon glyphicon-remove pull-right" ng-click="Close()"></button></div>
+ <div class="panel-body">
+
+<table class="table table-bordered table-striped">
+<tr><td>Project No</td></tr>
+<tr><td>{{project.no}}</td></tr>
+<tr><td>Status</td></tr>
+<tr><td>{{project.status}}</td></tr>
+<tr><td>Semester</td></tr>
+<tr><td>{{project.semester}}</td></tr>
+<tr><td>Title</td></tr>
+<tr><td>{{project.title}}</td></tr>
+<tr><td>Create At</td></tr>
+<tr><td>{{project.created_at}}</td></tr>
+<tr><td>Clients</td></tr>
+<tr><td>
+  <table class="table table-bordered"><tr><th>Full Name</th><th>Email</th><th>Phone</th><th>Organisation</th></tr>
+                <tr ng-repeat="client in project.clients">
+          <td>{{client.fullname}}></td>
+          <td>{{client.email}}></td>
+        <td>{{client.phone}}</td>
+      <td>{{client.organisation}}</td></tr></table>
+    </td></tr>
+
+<tr><td>Allocated Student Info</td></tr>
+<tr><td>
+  <table class="table table-bordered"><tr><th>ID</th><th>Full Name</th><th>Email</th><th>Project Plan</th><th>GPA</th></tr>
+                <tr ng-repeat="student in project.students">
+                  <td>{{student['Student Id']}}></td>
+          <td>{{student['Student First Name']}} {{student['Student Family Name']}}></td>
+          <td>{{student['Student Email Address']}}></td>
+        <td>{{student['Program Code']}}</td>
+      <td>{{student['Current GPA']}}</td></tr></table>
+    </td></tr>
+
+
+<tr><td>Allocated Academic Supervisor Info</td></tr>
+<tr><td>
+  <table class="table table-bordered"><tr><th>Full Name</th><th>Email</th></tr>
+                <tr ng-repeat="supervisor in project.supervisors">
+                  <td>{{supervisor.fullname}}</td>
+          <td>{{supervisor.email}}></td>
+        </tr></table>
+    </td></tr>
+  
+
+<tr><td>Project description</td></tr>
+<tr><td>{{project.description}}</td></tr>
+
+
+<tr><td>What business benefits are anticipated?</td></tr>
+<tr><td>{{project.question2!=null?project.question2:'No Infomation'}}</td></tr>
+
+<tr><td>What methods will be used?</td></tr>
+<tr><td>{{project.question3!=null?project.question3:'No Infomation'}}</td></tr>
+
+
+<tr><td>The sponsor of the project</td></tr>
+<tr><td>{{project.question4!=null?project.question4:'No Infomation'}}</td></tr>
+
+
+<tr><td>Immediate supervisor and supervision</td></tr>
+<tr><td>{{project.question5!=null?project.question5:'No Infomation'}}</td></tr>
+
+
+<tr><td>Contingency provisions</td></tr>
+<tr><td>{{project.question6!=null?project.question6:'No Infomation'}}</td></tr>
+
+<tr><td>Estimate of project workload</td></tr>
+<tr><td>{{project.question7!=null?project.question7:'No Infomation'}}</td></tr>
+
+
+<tr><td>Breadth of project</td></tr>
+<tr><td>{{project.question8!=null?project.question8:'No Infomation'}}</td></tr>
+
+
+<tr><td>Special requirements</td></tr>
+<tr><td>{{project.question9!=null?project.question9:'No Infomation'}}</td></tr>
+
+
+<tr><td>Confidentiality</td></tr>
+<tr><td>{{project.question10!=null?project.question10:'No Infomation'}}</td></tr>
+
+ </table>
+
+
+  <button type="button" class="btn" 
+          ng-click="Close()">Close</button>
+
+
+
+<!--<div class="row"><button type="submit" ng-disabled="projectForm.$invalid" class="btn btn-default" ng-click="CreateProject(newProject)">Create</button><button type="submit" class="btn btn-default">Back</button></div>
+-->
+</div>
+</div>
+</div>
+</div>
+
+
+

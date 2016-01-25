@@ -1,0 +1,79 @@
+<div ng-controller="StudentCtrl">
+  <div class="well well-sm">
+   Number of Students: <button ng-click="CountStudentBySemester($root.data.semesters.selectedSemester)">{{data.number==0?'Count':data.number}}</button> &nbsp;in&nbsp; <select ng-options="semester.name for semester in $root.data.semesters.show" ng-model="$root.data.semesters.selectedSemester" ng-change="GetProjectNoBySemester()"></select>
+  &nbsp;&nbsp;  Actions: <input type='radio' ng-model='data.action' value='copy'>Copy to</input>&nbsp;<input type='radio' ng-model='data.action' value='move'>Move to</input>&nbsp;<input type='radio' ng-model='data.action' value='load'>Load data to</input>&nbsp;<select name="semesters" id="semesters" ng-options="semester.name for semester in $root.data.semesters" ng-init="$root.data.semesters.selectedSemester" ng-model="data.actionSemester"></select>&nbsp;<button ng-click="ActionStudents(data.action,$root.data.semesters.selectedSemester,data.actionSemester)">Submit</button> &nbsp; <button type="file" ngf-select="uploadFiles(data.actionSemester,$file, $invalidFiles)"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select Student CSV File</button>&nbsp;
+      <button ng-click="BulkDelete()">Bulk Delete</button></div>
+
+
+
+<table id='studentsTable' class="table table-bordered">
+    <thead>
+      <tr>
+        <th><input type="checkbox" ng-model="selectAll" ng-click="CheckAll(selectAll,$root.data.semesters.selectedSemester)"></input></th>
+        <th>Action</th>
+         <th><a href="" ng-click="SetOrderBy('project_no')">Project/a><span ng-show="orderBy=='project_no'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+      	<th><a href="" ng-click="SetOrderBy('Student Id')">Student ID</a><span ng-show="orderBy=='Student Id'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+        <th><a href="" ng-click="SetOrderBy('Student First Name')">First Name</a><span ng-show="orderBy=='Student First Name'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+        <th><a href="" ng-click="SetOrderBy('Student Family Name')">Last Name</a><span ng-show="orderBy=='Student Family Name'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+           <th><a href="" ng-click="SetOrderBy('Current GPA')">GPA</a><span ng-show="orderBy=='Current GPA'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+        <th>Email</th>
+         <th><a href="" ng-click="SetOrderBy('Program Plan')">Program Plan</a><span ng-show="orderBy=='Program Code'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+          <th>Subject Area</th>
+          <th>Citizenship</th>
+      
+         
+          
+      </tr>
+    </thead>
+    <tbody>
+       <tr>
+        <td></td>
+          <td>
+              <button ng-hide="editStudent._id" ng-click="CreateStudent(editStudent,$root.data.semesters.selectedSemester)">Create</button>
+              <button ng-show="editStudent._id" ng-click="UpdateStudent(editStudent)">Update</button>
+              <button ng-show="editStudent._id" ng-click="CancelEditStudent()">Cancel</button></td>
+          <td></td>
+        <td><input ng-model="editStudent['Student Id']" required/></td>
+        <td><input ng-model="editStudent['Student First Name']" required/></td>
+        <td><input ng-model="editStudent['Student Family Name']" required/></td>
+         <td><input ng-model="editStudent['Current GPA']"  required/></td>
+        <td><input ng-model="editStudent['Student Email Address']"  required /></td>
+       
+         <td><input ng-model="editStudent['Program Plan']"  /></td>
+          <td><input ng-model="editStudent['Subject Area Catalog Number']"  /></td>
+            <td><input ng-model="editStudent['Citizenship Status Desc Medium']"  /></td>
+        
+           
+          
+      </tr>
+      <tr ng-repeat="student in $root.data.students | filter:{semester: $root.data.semesters.selectedSemester.name}| orderBy: predicate:reverse ">
+        <td><input type="checkbox"  ng-model="student.selected"></td>
+        <td>
+              <button ng-click="StartEditStudent(student)">Edit</button>
+              <button ng-click="DeleteStudent(student)">Delete</button>
+            </td>
+         <td>{{student.project_no}}</td>
+        <td >{{student['Student Id']}}</td>
+        <td>{{student['Student First Name']}}</td>
+        <td>{{student['Student Family Name']}}</td>
+           <td>{{student['Current GPA']}}</td>
+        <td>{{student['Student Email Address']}}</td>
+     
+         <td>{{student['Program Plan']}}</td>
+          <td>{{student['Subject Area Catalog Number']}}</td>
+          <td>{{student['Citizenship Status Desc Medium']}}</td>
+     
+         
+           
+      </tr>
+     
+     
+    </tbody>
+  </table>
+
+
+
+</div>
+

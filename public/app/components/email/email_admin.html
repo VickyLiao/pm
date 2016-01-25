@@ -1,0 +1,57 @@
+
+  <div ng-controller="EmailCtrl">
+<table class=" table table-striped table-bordered">
+  
+    <tr>   <td class="col-xs-2">Send from(you can choose to send from a different email) </td>
+            <td><input type="text" class="form-control" ng-model="email.from"></td></tr>
+            <tr>     <td>Template Name(only required when it is saved as Template</td>
+             <td><input type="text" class="form-control" ng-model="email.template_name"></td></tr>
+             <tr>
+            <td><button ng-click="SelectProjects()">Select Projects</button></td>
+            <td><span ng-repeat="id in selectedProjects._ids">{{id}}&nbsp;|&nbsp;</span>  </td>
+     
+        </tr>
+
+          <tr>     <td>Send to Project Groups</td>
+             <td>
+              <button ng-click="email.to.clients=!email.to.clients">Clients <span ng-class="email.to.clients? 'glyphicon glyphicon-ok':'glyphicon glyphicon-remove'"></span></button>
+               <button ng-click="email.to.students=!email.to.students">Students <span ng-class="email.to.students? 'glyphicon glyphicon-ok':'glyphicon glyphicon-remove'"></span></button>
+                <button ng-click="email.to.supervisors=!email.to.supervisors">Supervisors <span ng-class="email.to.supervisors? 'glyphicon glyphicon-ok':'glyphicon glyphicon-remove'"></span></button>
+              
+             </td></tr>
+                <tr>     <td>Send to(you can put more emails separated by ',')</td>
+                   <td><input type="text" class="form-control" ng-model="email.toList"></td></tr>
+        
+          <tr>
+            <td>Subject</td>
+            <td><input type="text" class="form-control" ng-model="email.subject"></td></td>
+        </tr>
+         <tr>
+            <td>Email<br />Available placeholders:[[{client.fullname}]],[[{client.email}]],[[{supervisor.fullname}]],[[{supervisor.email}]],[[{student.fullname}]],[[{student.email}]]</td>
+            <td><text-angular ng-model="email.content"></text-angular></td>
+        </tr>
+       
+            <tr>
+            <td colspan="2">  <button ng-show="editProject._id==project._id" ng-click="SaveTemplate(email)">Save as Template</button>
+               <button ng-show="editProject._id==project._id" ng-click="Preview(email)">Preview</button>
+                 <button ng-show="editProject._id==project._id" ng-click="Send(email)">Send</button></td>
+            
+        </tr>
+         
+    </table>
+<table class=" table table-striped table-bordered">
+   <thead>
+  <tr>
+    <th>Action</th>
+     <th>Templates</th></tr>
+    <tr>   <td class="col-xs-2">asdf </td>
+            <td><input type="text" class="form-control" ng-model="email.from"></td></tr>
+          <tr>     <td>Send to(you can put more emails separated by ';')</td>
+             <td><input type="text" class="form-control" ng-model="email.to"></td></tr>
+      
+    
+       
+           
+         
+    </table>
+  </div>

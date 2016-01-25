@@ -1,0 +1,39 @@
+<ul class="nav nav-pills nav-justified">
+  <li><a class="active" ng-click="GetAllocatedResource('Student')">Students</a></li>
+  <li><a ng-click="GetAllocatedResource('User')">Academic Staff</a></li>
+</ul>
+<div ng-switch on="allocatedResource">
+
+<!---Start of the student Panel-->
+<div ng-switch-when="Student">
+
+<div class="panel panel-default">
+<div class="panel-heading">
+OrderBy &nbsp;&nbsp; <select ng-options= "item.value as item.name for item in orderByList.list" ng-model='orderByList.first.value'></select><span ng-class="orderByList.first.order? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'" ng-click="orderByList.first.order=!orderByList.first.order"></span>  
+  </div>
+
+ <div class="panel-body">
+  <div dnd-draggable="student"  dnd-type="'student'"
+         ng-repeat="student in $root.data.students.unallocated | filter:{semester:$root.data.semesters.selectedSemester.name}|  orderBy:predicate:orderByList.first.order" >
+         <button>{{student['Student First Name']}} {{student['Student Family Name']}} [{{student['Program Plan']}}] ({{student['Current GPA']}}) {{student['Project_no']}}</button><button type="button" class="glyphicon glyphicon-search" ng-click="RedirectToWeb(student)"></button></div>
+
+</div>
+
+  
+</div>
+</div>
+<!---End of the User Panel-->
+
+<!---Start of the User Panel-->
+<div ng-switch-when="User">
+<div class="panel panel-default">
+
+ <div class="panel-body">
+ <div dnd-draggable="user" dnd-type="'supervisor'" ng-repeat="user in $root.data.users |orderBy:'fullname'"><button>{{user.fullname}}</button></div>
+</div>
+</div>
+
+</div>
+<!---end of the User Panel-->
+
+</div>

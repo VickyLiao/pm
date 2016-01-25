@@ -1,0 +1,201 @@
+
+
+<div class="modal-admin">
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Project Information</div>
+ <div class="panel-body">
+<form name="projectForm" novalidate>  
+  <div class="form-group">
+    <label for="email">Title</label>
+    <input type="text" class="form-control" name="title" ng-model="newProject.title" required />
+    <span class="error" ng-show="projectForm.title.$error.required">Please enter a title</span>
+  </div>
+  <div class="form-group">
+    <label for="question1">Project description</label>
+    <textarea class="form-control" rows="2" name="question1" ng-model="newProject.description" required /></textarea>
+    <span class="error" ng-show="projectForm.question1.$error.required">Please enter a description</span>
+  </div>
+
+
+
+ <div class="form-group">
+    <label for="semester">What semester you want to host the project?</label>
+  <select name="semester" id="semester" ng-options="semester.name as semester.name for semester in data.semesters" ng-model="newProject.semester" required></select><br />
+       <span class="error" ng-show="projectForm.semester.$error.required">Please select a semester you would like to host the project</span>
+     </div>
+
+
+
+     <div class="form-group">
+    <label for="question2">What business benefits are anticipated?</label>
+    <textarea class="form-control" rows="2" name="question2" ng-model="newProject.question2"></textarea>
+  </div>
+
+
+      <div class="form-group">
+    <label for="question3">What methods will be used?</label>
+    <textarea class="form-control" rows="2" name="question3" ng-model="newProject.question3"></textarea>
+  </div>
+
+
+    <div class="form-group">
+    <label for="question4">The sponsor of the project</label>
+    <textarea class="form-control" rows="2" name="question4" ng-model="newProject.question4"></textarea>
+  </div>
+     <div class="form-group">
+    <label for="question5">Immediate supervisor and supervision</label>
+   <textarea class="form-control" rows="2" name="question5" ng-model="newProject.question5"></textarea>
+  </div>
+    <div class="form-group">
+    <label for="question6">Contingency provisions</label>
+   <textarea class="form-control" rows="2" name="question6" ng-model="newProject.question6"></textarea>
+  </div>
+     <div class="form-group">
+    <label for="question7">Estimate of project workload</label>
+   <textarea class="form-control" rows="2" name="question7" ng-model="newProject.question7"></textarea>
+  </div>
+    <div class="form-group">
+    <label for="question8">Breadth of project</label>
+   <textarea class="form-control" rows="2" name="question8" ng-model="newProject.question8"></textarea>
+  </div>
+     <div class="form-group">
+    <label for="question9">Special requirements</label>
+    <textarea class="form-control" rows="2" name="question9" ng-model="newProject.question9"></textarea>
+  </div>
+    <div class="form-group">
+    <label for="question10">Confidentiality</label>
+   <textarea class="form-control" rows="2" name="question10" ng-model="newProject.question10"></textarea>
+  </div>
+</form>
+
+
+
+
+</div>
+
+
+
+  <!-- second -->
+
+<div class="panel panel-default">
+  <div class="panel-heading">Imediate Contact</div>
+ <div class="panel-body">
+
+ <form class="form-horizontal" name="contactForm" novalidate>  
+<div class="form-group">
+      <label class="control-label col-sm-4" for="fullname">Full Name</label>
+      <div class="col-sm-8">          
+        <input type="text" class="form-control" name="fullname" ng-model="newProject.newContact.fullname" required>
+          <span class="error" ng-show="contactForm.fullname.$error.required">Please enter your full name</span>
+      </div>
+    
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="email">Email</label>
+      <div class="col-sm-8">          
+        <input type="email" class="form-control" name="email" ng-model="newProject.newContact.email" required>
+          <span class="error" ng-show="contactForm.email.$error.required">Please enter an Email</span>
+      </div>
+    
+    </div>
+
+   <div class="form-group">
+      <label class="control-label col-sm-4" for="phone" >Phone</label>
+      <div class="col-sm-8">          
+        <input type="text" class="form-control" name="phone" ng-model="newProject.newContact.phone">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="organisation">Partner Organisation</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="organisation" ng-model="newProject.newContact.organisation">
+      </div>
+     
+    </div>
+    
+   
+      <div class="form-group">
+      <label class="control-label col-sm-4" for="address">Address</label>
+      <div class="col-sm-8">          
+        <input type="text" class="form-control" name="address"  ng-model="newProject.newContact.address" >
+      </div>
+    </div>
+</form>
+ 
+  
+
+
+
+ </div>
+<!-- second  -->
+
+<div class="panel panel-default">
+  <div class="panel-heading"><input type="checkbox" ng-model="hasSecondContact">Second Contact</div>
+ <div class="panel-body">
+   <form  class="form-horizontal"  name="contactSecForm" novalidate>  
+<div class="form-group">
+      <label class="control-label col-sm-4" for="fullname">Full Name</label>
+      <div class="col-sm-8">          
+        <input type="text" class="form-control" name="fullname" ng-disabled="!hasSecondContact"  ng-model="newProject.secNewContact.fullname" />
+          <span class="error" ng-show="contactSecForm.fullname.$error.required">Please enter your full name</span>
+      </div>
+    
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="email">Email</label>
+      <div class="col-sm-8">          
+        <input type="email" class="form-control" name="email" ng-disabled="!hasSecondContact"   ng-model="newProject.secNewContact.email" />
+          <span class="error" ng-show="contactSecForm.email.$error.required" >Please enter an Email</span>
+      </div>
+    
+    </div>
+
+   <div class="form-group">
+      <label class="control-label col-sm-4" for="phone">Phone</label>
+      <div class="col-sm-8">          
+        <input type="text" class="form-control" name="phone" ng-disabled="!hasSecondContact" ng-model="newProject.secNewContact.phone">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="organisation">Partner Organisation</label>
+      <div class="col-sm-8"> 
+        <input type="text" class="form-control" name="organisation" ng-disabled="!hasSecondContact" ng-model="newProject.secNewContact.organisation">
+      </div>
+     
+    </div>
+    
+   
+      <div class="form-group">
+      <label class="control-label col-sm-4" for="address">Address</label>
+      <div class="col-sm-8">          
+        <input type="text" class="form-control" name="address" ng-disabled="!hasSecondContact" ng-model="newProject.secNewContact.address" >
+      </div>
+    </div>
+   
+ </form>
+   
+ 
+
+</div>
+ </div>
+
+
+  <button type="button" class="btn" 
+          ng-click="Cancel()">Cancel</button>
+  <button class="btn btn-primary" 
+          ng-click="Save(newProject)">Save</button>
+
+
+<!--<div class="row"><button type="submit" ng-disabled="projectForm.$invalid" class="btn btn-default" ng-click="CreateProject(newProject)">Create</button><button type="submit" class="btn btn-default">Back</button></div>
+-->
+</div>
+</div>
+
+
+
+

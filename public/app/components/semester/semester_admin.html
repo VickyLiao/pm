@@ -1,0 +1,21 @@
+<div ng-controller="SemesterCtrl">
+ 
+  <form> 
+    <input type="text"  ng-model="newSemester.name" placeholder="Create new semester">
+  <button type="submit" class="btn btn-default" ng-click="CreateSemester(newSemester)">Submit</button>
+
+
+ <div  ng-repeat="semester in $root.data.semesters">
+                    <span>{{semester.name}}</span>
+                      <button type="submit" class="btn btn-default" ng-click="SetCurrentSemester($index)">{{semester.isCurrent?'Current':'Not Current'}}</button>
+ <button type="submit" class="btn btn-default" ng-click="ChangeStatusSemester($index)">{{semester.status?'Show':'Hide'}}</button>
+      <button type="submit" class="btn btn-default" ng-click="DeleteSemester($index)">Delete</button>
+                </div>
+   
+
+ 
+  </form>   
+
+
+
+    </div>

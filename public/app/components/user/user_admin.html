@@ -1,0 +1,49 @@
+<div ng-controller="UserCtrl">
+   <div class="well well-sm">
+  <select name='role' id='role' ng-model='data.selectedRole' ng-options='role for role in data.roles'> 
+ </select>
+  &nbsp;&nbsp; <a href="app/assets/downloads/user.xlsx" target="_blank">Download the template before upload</a> &nbsp;<button type="file" ngf-select="UploadFiles($file, $invalidFiles)"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select Upload CSV File</button>&nbsp;
+    </div>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>FullName</th>
+        <th>Email</th>
+        <th>Role</th>
+         <th>Organisation</th>
+            <th>Phone Number</th>
+         <th>Password</th>
+         <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in $root.data.users | filter:{role:data.selectedRole} | orderBy: 'lastname'">
+        <td>{{user.fullname}}</td>
+  
+        <td>{{user.email}}</td>
+        <td>{{user.role}}</td>
+  <td>{{user.organisation}}</td>
+  <td>{{user.phone}}</td>
+ <td>*******</td>
+            <td><button ng-click="StartEditUser(user)">Edit</button><button ng-click="DeleteUser(user)">Delete</button></td>
+      </tr>
+      <tr>
+
+        <td><input ng-model="editUser.fullname" required /></td>
+  
+       <td>{{editUser.email}}</td>
+            <td><select name='role' id='role' ng-model='editUser.role' ng-options='role for role in data.roles' required>  </select> </td>
+        <td><input ng-model="editUser.organisation" /></td>
+           <td><input ng-model="editUser.phone" /></td>
+ <td><input ng-model="editUser.newPassword" /></td>
+      
+            <td><button ng-hide="editUser._id" ng-click="CreateUser(editUser)">Create</button><button ng-show="editUser._id" ng-click='UpdateUser(editUser)'>Update</button><button ng-show="editUser._id" ng-click="CancelEditUser()">Cancel</button></td>
+      </tr>
+     
+    </tbody>
+  </table>
+
+</div>

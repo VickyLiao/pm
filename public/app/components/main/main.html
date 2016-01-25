@@ -1,0 +1,51 @@
+
+  <div ng-controller="MainCtrl">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container">
+           <ul class="nav navbar-nav"  ng-show="$root.currentUser.role=='PD'">
+     <li> <button type="button" class="btn btn-primary" ng-click="UpdateUrl('app/components/project/project.html')">Project</button></li>
+        <li><button type="button" class="btn btn-primary" ng-click="UpdateUrl('app/components/student/student.html')">Student</button></li>
+          <li> <button type="button" ng-click="LogOut()" class="btn btn-primary">Logout</button></li>
+      </ul>
+       <ul class="nav navbar-nav"  ng-show="$root.currentUser.role=='Admin'">
+     <li>  <button type="button" class="btn btn-primary" ng-click="UpdateUrl('app/components/project/project_admin.html')">Project Admin</button></li>
+        <li><button type="button" class="btn btn-primary" ng-click="UpdateUrl('app/components/student/student_admin.html')">Student Admin</button></li>
+         <li>  <button type="button" class="btn btn-primary" ng-click="UpdateUrl('app/components/semester/semester_admin.html')">Semester Setting</button></li>
+  <li><button type="button" class="btn btn-primary" ng-click="UpdateUrl('app/components/user/user_admin.html')">User Admin</button></li>
+   <li> <button type="button" class="btn btn-primary" ng-click="UpdateUrl('app/components/email/email_admin.html')">Email</button></li>
+      <li> <button type="button" ng-click="LogOut()" class="btn btn-primary">Logout</button></li>
+      </ul>
+      
+    </div><!-- /.navbar-collapse -->
+
+     <div class="container-full">
+       
+ <div ><ng-include src="data.url"></ng-include></div>
+
+</div>
+  </div><!-- /.container-fluid -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

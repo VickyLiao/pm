@@ -1,0 +1,86 @@
+body {
+  padding: 30px;
+  padding-top: 10px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+
+ p{
+        padding: 0px;
+        padding-top: 0px;
+        font-size: 14px;
+        color: #FFFFFF;
+     
+     
+    }
+
+.container-full{
+  margin-top: 20px;
+  width:100%;
+}
+.selectwidthauto
+{
+     width:auto !important;
+}
+a {
+  color: #00B7FF;
+}
+
+
+.top-buffer { margin-top:10px; }
+
+
+td /* Give whatever class name you want */
+{
+word-wrap:break-word;
+width: auto;
+
+}
+
+
+span.error { color: red; font-weight: bold; }
+
+#studentsTable { width: auto; }
+#studentsTable td { max-width: 220px; text-overflow: ellipsis;
+overflow: hidden; white-space: nowrap; }
+#studentsTable td input { max-width: 150px; }
+#projectsTable { width: 100%; }
+#projectsTable td { max-width: 250px; min-width: 50px; text-overflow: ellipsis;
+overflow: hidden; white-space: nowrap; }
+#projectsTable td input { max-width: 150px; }
+
+ul
+{
+  padding: 0;
+    list-style-type: none;
+}
+
+.tooltip-inner {
+    text-align: left;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    margin-bottom: 6px;
+    background-color: #505050;
+    font-size: 14px;
+    min-width: 200px;
+    max-width: 500px;
+}
+
+table {
+     width: 100%;
+ }
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    color:#000000;
+    font-size: 100%;
+    margin:20px 0;
+}
+.ta-editor.p{
+   color:#000000;
+}

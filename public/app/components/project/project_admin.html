@@ -1,0 +1,102 @@
+<!--
+<div class="panel panel-default" ng-controller="ProjectCtrl">
+<button type="file" ngf-select="UploadFiles($file, $invalidFiles)"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select Projects CSV File</button>
+</div>
+-->
+
+<div  ng-controller="ProjectCtrl">
+
+
+<div class="well well-sm">
+  Select : <select ng-options="semester.name for semester in $root.data.semesters.show" ng-model="$root.data.semesters.selectedSemester" ng-change="GetProjectNoBySemester()"></select>
+  &nbsp;&nbsp;<select ng-options="status for status in $root.data.projects.status" ng-model="$root.data.projects.selectedStatus"></select>&nbsp;&nbsp;  Action : &nbsp; <input type='radio' ng-model='data.action' value='copy'>Copy to</input>&nbsp;<input type='radio' ng-model='data.action' value='move'>Move to</input>&nbsp;<input type='radio' ng-model='data.action' value='load'>Load data to</input>&nbsp;<select name="semesters" id="semesters" ng-options="semester.name for semester in $root.data.semesters" ng-init="$root.data.semesters.selectedSemester" ng-model="data.actionSemester"></select>&nbsp;<button ng-click="UnderConstruction()">Submit</button> &nbsp; &nbsp;<button type="button" class="glyphicon glyphicon-plus-sign" ng-click="CreateProject()">
+</button> <button type="button" ng-csv="ExportProjects($root.data.semesters.selectedSemester)" csv-header="['Project NO','Title','Status','Description','Clients','Academic Supervisor','Students','Comments']" filename="test.csv">Export to CSV</button> 
+      <button ng-click="BulkDelete()">Bulk Delete</button></div>
+  <div class="panel-body">
+<!-- Semesters on the left -->
+
+
+  <div class="row" >
+<!-- Projects in the center -->
+<div class="col-md-9" >
+
+
+
+
+
+<table id='projectsTable' class="table table-bordered">
+    <thead>
+      <tr>
+        <th><input type="checkbox" ng-model="selectAll" ng-click="CheckAll(selectAll)"></input></th>
+        <th><a href="" ng-click="SetOrderBy('Student Id')">No</a><span ng-show="orderBy=='Student Id'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+        <th><a href="" ng-click="SetOrderBy('Student First Name')">Title</a><span ng-show="orderBy=='Student First Name'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+       
+        <th><a href="" ng-click="SetOrderBy('Student Email Address')">Client</a><span ng-show="orderBy=='Student Email Address'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+        <th><a href="" ng-click="SetOrderBy('Current GPA')">Students</a><span ng-show="orderBy=='Current GPA'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+         <th><a href="" ng-click="SetOrderBy('Program Plan')">Academic Supervisor</a><span ng-show="orderBy=='Program Plan'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+           <th><a href="" ng-click="SetOrderBy('Program Code')">Comments</a><span ng-show="orderBy=='Program Code'" ng-class="reverse? 'glyphicon glyphicon-hand-down':'glyphicon glyphicon-hand-up'"></span></th>
+          <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+       
+      <tr ng-repeat-start="project in $root.data.projects | filter:{semester: $root.data.semesters.selectedSemester.name}|filter:{status: $root.data.projects.selectedStatus}| orderBy: predicate:reverse ">
+        <td><input type="checkbox"  ng-model="project.selected"></td>
+        <td >{{project.no}}</td>
+        <td>{{project.title}}</td>
+    
+        
+        <td><ul>
+          <li ng-repeat="client in project.clients"><a href="#" uib-tooltip-html="'{{client.email}} &nbsp; {{client.phone}} &nbsp; {{client.organisation}}'">{{client.fullname}}</a></li>
+        </ul></td>
+       
+         <td><ul><li ng-repeat="student in project.students">
+          {{student['Student First Name']}} {{student['Student Family Name']}}[{{student['Program Plan']}}]({{student['Current GPA']}})</li></ul></td>
+       
+           <td><ul>
+          <li ng-repeat="supervisor in project.supervisors">{{supervisor.fullname}}</li>
+        </ul></td>
+              <td>
+            <span uib-tooltip-template="'app/components/project/comments.html'"> {{project.comments==null?'no comments':project.comments.length}}</span>
+          </td>
+
+       
+            <td>
+              <button ng-click="ShowProject(project)">Detail</button>
+              <button ng-hide="editProject._id==project._id" ng-click="StartEditProject(project)">Edit</button>
+             
+            
+                  <button ng-hide="project.commentMode" ng-click="project.commentMode=!project.commentMode">Add Comment</button>
+            </td>
+      </tr>
+      <tr ng-show="editProject._id==project._id" ng-repeat-end><td colspan="8"><div ng-include="'app/components/project/edit_project.html'"></div></td></tr>
+     
+     
+    </tbody>
+  </table>
+
+
+<!--page counting start-->
+<div class="pull-right btn-group">
+    <button type="button" ng-class="getPageClass($index+1)" ng-repeat="project in projects" ng-click="selectPage($index+1)">{{$index +1}}</button>
+  </div>
+
+
+</div>
+<!--page counting end -->
+<div class="col-md-3" ng-include="'app/components/project/project_side.html'"</div>
+
+
+
+
+</div>
+<!---End of the Right Panel-->
+
+
+
+</div>
+  
+</div>
+</div>
